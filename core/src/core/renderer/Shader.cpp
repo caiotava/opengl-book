@@ -93,7 +93,6 @@ namespace core {
         const auto fragSource = readTextFile(frag);
 
         GLuint vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER);
-        std::cout << "Está passando 1" << std::endl;
         const auto* source = vertexSource.c_str();
 
         glShaderSource(vertexShaderHandle, 1, &source, nullptr);

@@ -5,6 +5,7 @@ set(SOURCES
         src/core/renderer/Renderer.h
         src/core/renderer/Shader.cpp
         src/core/renderer/Shader.h
+        src/scene/LayerScene.cpp
 )
 
 add_library(Core STATIC)

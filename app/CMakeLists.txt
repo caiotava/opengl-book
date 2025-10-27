@@ -1,5 +1,5 @@
 
-set(SOURCES src/main.cpp)
+set(SOURCES src/main.cpp src/AppLayer.cpp)
 
 if (EMSCRIPTEN)
     set(SOURCES src/main_web.cpp)
@@ -10,8 +10,7 @@ if (EMSCRIPTEN)
 endif ()
 
 list(APPEND SOURCES
-        src/AppLayer.cpp
-        src/AppLayer.h
+        src/scenes/02-chapter/SceneClearColor.h
 )
 
 add_executable(App)

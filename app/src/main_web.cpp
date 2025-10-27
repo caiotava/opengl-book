@@ -1,6 +1,8 @@
 #include <emscripten.h>
 
 #include <core/Application.h>
+#include <scene/LayerScene.h>
+#include "scenes/02-chapter/SceneClearColor.h"
 #include "AppLayer.h"
 
 void RunGameLoop() {
@@ -27,7 +29,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<AppLayer>();
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneClearColor>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;

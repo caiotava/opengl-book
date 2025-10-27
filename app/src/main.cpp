@@ -1,6 +1,8 @@
 #include <core/Application.h>
-#include <core/Layer.h>
 #include "AppLayer.h"
+#include <scene/LayerScene.h>
+
+#include "scenes/02-chapter/SceneClearColor.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -11,5 +13,6 @@ int main() {
 
     core::Application app(appConfig);
     app.PushLayer<AppLayer>();
+    // app.PushLayer<core::LayerScene>(std::make_unique<SceneClearColor>());
     app.Run();
 }

@@ -71,5 +71,4 @@ namespace core {
     float Application::GetTime() {
         return static_cast<float>(SDL_GetTicks());
     }
-
 }
