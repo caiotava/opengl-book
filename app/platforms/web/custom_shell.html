@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emscripten WebAssembly</title>
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+<!-- an element where emscripten will add the canvas for output -->
+<canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<script type="application/javascript">
+    var Module = {
+        canvas: (function() { return document.getElementById("canvas"); })()
+    };
+</script>
+<!-- the scripts are added here -->
+{{{ SCRIPT }}}
+</body>
+</html>
