@@ -11,6 +11,8 @@ endif ()
 
 list(APPEND SOURCES
         src/scenes/02-chapter/SceneClearColor.h
+        src/scenes/02-chapter/SceneDrawingDot.cpp
+        src/scenes/02-chapter/SceneDrawingDot.h
 )
 
 add_executable(App)

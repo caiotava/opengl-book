@@ -2,12 +2,12 @@
 #define OPENGL_BOOK_SCENECLEARCOLOR_H
 
 #include <scene/Scene.h>
-#include <iostream>
 #include <core/renderer/System.h>
 
 class SceneClearColor final : public core::Scene {
 public:
-    SceneClearColor() : Scene("SceneClearColor") {}
+    SceneClearColor() : Scene("SceneClearColor") {
+    }
 
     void OnUpdate(float ts) override {
     }
