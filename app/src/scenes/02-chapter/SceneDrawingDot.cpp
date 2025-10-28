@@ -24,7 +24,7 @@ GLuint SceneDrawingDot::createShaderProgram() {
         "precision mediump float; \n"
         "void main(void) {	\n"
         "	gl_Position = vec4(0.0, 0.0, 0.0, 1.0); \n "
-        "	gl_PointSize = 10.0; \n "
+        "	gl_PointSize = 30.0; \n "
         "} \n ";
 
     const std::string fShaderSource =
@@ -32,7 +32,10 @@ GLuint SceneDrawingDot::createShaderProgram() {
         "precision mediump float; \n"
         "out vec4 color;	\n"
         "void main(void) { 	\n"
-        "	color = vec4(1.0, 0.0, 1.0, 1.0); \n"
+        "   if (gl_FragCoord.x < 295.0)\n"
+        "		color = vec4(1.0, 0.0, 0.0, 1.0); \n"
+        "	else \n"
+        "		color = vec4(0.0, 1.0, 1.0, 1.0); \n"
         "}";
 
     GLuint vShader = glCreateShader(GL_VERTEX_SHADER);

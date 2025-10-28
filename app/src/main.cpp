@@ -13,7 +13,7 @@ int main() {
     appConfig.windowConfig.hasVSync = true;
 
     core::Application app(appConfig);
-    // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingDot>());
+    app.PushLayer<AppLayer>();
+    // app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingDot>());
     app.Run();
 }

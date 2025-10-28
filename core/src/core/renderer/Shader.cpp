@@ -5,12 +5,6 @@
 #include <sstream>
 #include <vector>
 
-#if defined(__EMSCRIPTEN__)
-    #include <GLES3/gl3.h>
-#else
-    #include <glad/glad.h>
-#endif
-
 namespace core {
     static std::string readTextFile(const std::filesystem::path& path) {
         std::ifstream file(path);
@@ -40,14 +34,7 @@ namespace core {
         glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &isCompiled);
 
         if (isCompiled == GL_FALSE) {
-            GLint maxLength = 0;
-            glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &maxLength);
-
-            std::vector<GLchar> infoLog(maxLength);
-            glGetShaderInfoLog(shaderHandle, maxLength, &maxLength, &infoLog[0]);
-
-            std::cerr << "error compiling shader: " << infoLog.data() << std::endl;
-
+            printShaderLog(shaderHandle);
             glDeleteShader(shaderHandle);
             return -1;
         }
@@ -60,21 +47,49 @@ namespace core {
         glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
 
         if (isLinked == GL_FALSE) {
-            GLint maxLength = 0;
-            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-            std::vector<GLchar> infoLog(maxLength);
-            glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
-
-            std::cerr << "error linking program: " << infoLog.data() << std::endl;
+            printProgramLog(program);
             glDeleteProgram(program);
             glDeleteShader(shaderHandle);
-
             return -1;
         }
 
         glDetachShader(program, shaderHandle);
         return program;
+    }
+
+    bool checkOpenGLError() {
+        bool foundError = false;
+        int32_t glErr = glGetError();
+
+        while (glErr != GL_NO_ERROR) {
+            std::cerr << "gl_error: " << glErr << std::endl;
+            glErr = glGetError();
+            foundError = true;
+        }
+
+        return foundError;
+    }
+
+    void printProgramLog(int programID) {
+        GLint logLength = 0;
+        glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logLength);
+
+        if (logLength > 0) {
+            std::vector<GLchar> infoLog(logLength);
+            glGetProgramInfoLog(programID, logLength, &logLength, &infoLog[0]);
+            std::cerr << "program log: " << infoLog.data() << std::endl;
+        }
+    }
+
+    void printShaderLog(GLuint shaderID) {
+        GLint logLength = 0;
+        glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logLength);
+
+        if (logLength > 0) {
+            std::vector<GLchar> infoLog(logLength);
+            glGetShaderInfoLog(shaderID, logLength, &logLength, &infoLog[0]);
+            std::cerr << "shader info log: " << infoLog.data() << std::endl;
+        }
     }
 
     uint32_t reloadComputerShader(uint32_t shaderHandle, const std::filesystem::path& path) {
@@ -101,14 +116,7 @@ namespace core {
         GLint isCompiled = 0;
         glGetShaderiv(vertexShaderHandle, GL_COMPILE_STATUS, &isCompiled);
         if (isCompiled == GL_FALSE) {
-            GLint maxLength = 0;
-            glGetShaderiv(vertexShaderHandle, GL_INFO_LOG_LENGTH, &maxLength);
-
-            std::vector<GLchar> infoLog(maxLength);
-            glGetShaderInfoLog(vertexShaderHandle, maxLength, &maxLength, &infoLog[0]);
-
-            std::cerr << "error compiling vertex shader: " << infoLog.data() << std::endl;
-
+            printShaderLog(vertexShaderHandle);
             glDeleteShader(vertexShaderHandle);
             return -1;
         }
@@ -122,12 +130,7 @@ namespace core {
         isCompiled = 0;
         glGetShaderiv(fragmentShaderHandle, GL_COMPILE_STATUS, &isCompiled);
         if (isCompiled == GL_FALSE) {
-            GLint maxLength = 0;
-            glGetShaderiv(fragmentShaderHandle, GL_INFO_LOG_LENGTH, &maxLength);
-            std::vector<GLchar> infoLog(maxLength);
-            glGetShaderInfoLog(fragmentShaderHandle, maxLength, &maxLength, &infoLog[0]);
-
-            std::cerr << "error compiling fragment shader: " << infoLog.data() << std::endl;
+            printShaderLog(fragmentShaderHandle);
             glDeleteShader(fragmentShaderHandle);
             return -1;
         }
@@ -140,14 +143,7 @@ namespace core {
         GLint isLinked = 0;
         glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
         if (isLinked == GL_FALSE) {
-            GLint maxLength = 0;
-            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-
-            std::vector<GLchar> infoLog(maxLength);
-            glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
-
-            std::cerr << "error linking program: " << infoLog.data() << std::endl;
-
+            printProgramLog(program);
             glDeleteProgram(program);
             glDeleteShader(vertexShaderHandle);
             glDeleteShader(fragmentShaderHandle);

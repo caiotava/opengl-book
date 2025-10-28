@@ -4,6 +4,7 @@
 #include <core/renderer/Shader.h>
 
 #include "core/Application.h"
+#include <glad/glad.h>
 
 AppLayer::AppLayer() {
     m_shaderProgram = core::createGraphicsShader("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl");
