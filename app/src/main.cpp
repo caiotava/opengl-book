@@ -5,6 +5,7 @@
 #include "scenes/02-chapter/SceneClearColor.h"
 #include "scenes/02-chapter/SceneDrawingDot.h"
 #include "scenes/02-chapter/SceneDrawingTriangle.h"
+#include "scenes/02-chapter/SceneSimpleAnimation.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -15,6 +16,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingTriangle>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneSimpleAnimation>());
     app.Run();
 }

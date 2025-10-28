@@ -31,7 +31,6 @@ namespace core {
     }
 
     void Application::RunLoop() {
-        float lastTime = GetTime();
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
@@ -41,7 +40,8 @@ namespace core {
         }
 
         float currentTime = GetTime();
-        float timeStep = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
+        float timeStep = glm::clamp(currentTime - m_lastFrameTime, 0.001f, 0.1f);
+        m_lastFrameTime = currentTime;
 
         for (const auto& layer : m_layerStack) {
             layer->OnUpdate(timeStep);

@@ -25,8 +25,8 @@ namespace core {
         void Stop();
         void SetRunning(bool running) { m_isRunning = running; }
 
-        template <typename TLayer, typename ... Args>
-        requires(std::is_base_of_v<Layer, TLayer>)
+        template <typename TLayer, typename... Args>
+            requires(std::is_base_of_v<Layer, TLayer>)
         void PushLayer(Args&&... args) {
             m_layerStack.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
         }
@@ -40,6 +40,7 @@ namespace core {
         ApplicationConfig m_config;
         std::shared_ptr<Window> m_window;
         std::vector<std::unique_ptr<Layer>> m_layerStack;
+        float m_lastFrameTime = 0;
 
         bool m_isRunning = false;
     };
