@@ -6,6 +6,8 @@
 #include "scenes/02-chapter/SceneDrawingDot.h"
 #include "scenes/02-chapter/SceneDrawingTriangle.h"
 #include "scenes/02-chapter/SceneSimpleAnimation.h"
+#include "scenes/02-chapter/SceneSimpleRotation.h"
+#include "scenes/04-chapter/ScenePlainRedCube.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -16,6 +18,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneSimpleAnimation>());
+    app.PushLayer<core::LayerScene>(std::make_unique<ScenePlainRedCube>());
     app.Run();
 }
