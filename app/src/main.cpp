@@ -9,6 +9,7 @@
 #include "scenes/02-chapter/SceneSimpleRotation.h"
 #include "scenes/04-chapter/ScenePlainRedCube.h"
 #include "scenes/04-chapter/SceneIntepolateCubeColor.h"
+#include "scenes/04-chapter/SceneSwarmCube.h"
 
 int main() {
     core::ApplicationConfig appConfig;
