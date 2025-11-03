@@ -8,6 +8,7 @@
 #include "scenes/02-chapter/SceneSimpleAnimation.h"
 #include "scenes/02-chapter/SceneSimpleRotation.h"
 #include "scenes/04-chapter/ScenePlainRedCube.h"
+#include "scenes/04-chapter/SceneIntepolateCubeColor.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -18,6 +19,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<ScenePlainRedCube>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneIntepolateCubeColor>());
     app.Run();
 }

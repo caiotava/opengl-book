@@ -8,6 +8,7 @@
 #include "scenes/02-chapter/SceneSimpleAnimation.h"
 #include "scenes/02-chapter/SceneSimpleRotation.h"
 #include "scenes/04-chapter/ScenePlainRedCube.h"
+#include "scenes/04-chapter/SceneIntepolateCubeColor.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -33,7 +34,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<ScenePlainRedCube>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneIntepolateCubeColor>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;
