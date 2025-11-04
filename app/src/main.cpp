@@ -11,6 +11,7 @@
 #include "scenes/04-chapter/SceneIntepolateCubeColor.h"
 #include "scenes/04-chapter/SceneSwarmCube.h"
 #include "scenes/04-chapter/SceneInstancedCube.h"
+#include "scenes/04-chapter/SceneCubePyramid.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -21,6 +22,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneInstancedCube>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneCubePyramid>());
     app.Run();
 }

@@ -11,6 +11,7 @@
 #include "scenes/04-chapter/SceneIntepolateCubeColor.h"
 #include "scenes/04-chapter/SceneSwarmCube.h"
 #include "scenes/04-chapter/SceneInstancedCube.h"
+#include "scenes/04-chapter/SceneCubePyramid.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -36,7 +37,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneInstancedCube>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneCubePyramid>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;

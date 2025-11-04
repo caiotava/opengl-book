@@ -1,5 +1,5 @@
-#ifndef OPENGL_BOOK_SCENEINSTANCEDCUBE_H
-#define OPENGL_BOOK_SCENEINSTANCEDCUBE_H
+#ifndef OPENGL_BOOK_SCENECUBEPYRAMID_H
+#define OPENGL_BOOK_SCENECUBEPYRAMID_H
 
 #include <array>
 
@@ -11,16 +11,17 @@
 #include <core/renderer/System.h>
 #include <scene/Scene.h>
 
-class SceneInstancedCube final : public core::Scene {
+class SceneCubePyramid final : public core::Scene {
 public:
-    SceneInstancedCube() : Scene("4.6.1 Instanced Cube") {
+    SceneCubePyramid() : Scene("4.7 Cube Pyramid") {
         m_renderingProgram = core::createGraphicsShader(
-            "assets/shaders/04-chapter/instanced-cube.vert",
+            "assets/shaders/04-chapter/plain-red-cube.vert",
             "assets/shaders/04-chapter/plain-red-cube.frag"
         );
 
-        // m_cameraPosition = glm::vec3(0.0f, 0.0f, 32.0f);
-        m_cameraPosition = glm::vec3(350.0f, -220.0f, 10.0f);
+        m_cameraPosition = glm::vec3(0.0f, 0.0f, 8.0f);
+        m_cubePosition = glm::vec3(0.0f, -2.0f, 0.0f);
+        m_pyramidPosition = glm::vec3(2.0f, 2.0f, 0.0f);
         setupVertices();
     }
 
@@ -35,6 +36,8 @@ public:
 
         glUseProgram(m_renderingProgram);
 
+        m_viewMatrix = glm::translate(glm::mat4(1.0f), -m_cameraPosition);
+
         m_matrixViewLocation = glGetUniformLocation(m_renderingProgram, "modelViewMatrix");
         m_projectionLocation = glGetUniformLocation(m_renderingProgram, "projectionMatrix");
         const auto timeFactorLocation = glGetUniformLocation(m_renderingProgram, "timeFactor");
@@ -46,9 +49,10 @@ public:
         m_projectionMatrix = glm::perspective(1.0472f, m_aspectRatio, 0.1f, 1000.0f);
         glUniformMatrix4fv(m_projectionLocation, 1, GL_FALSE, glm::value_ptr(m_projectionMatrix));
 
-        m_viewMatrix = glm::translate(glm::mat4(1.0f), -m_cameraPosition);
 
-        glUniformMatrix4fv(m_matrixViewLocation, 1, GL_FALSE, glm::value_ptr(m_viewMatrix));
+        auto modelMatrix = glm::translate(glm::mat4(1.0f), m_cubePosition);
+        modelMatrix = m_viewMatrix * modelMatrix;
+        glUniformMatrix4fv(m_matrixViewLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
         glUniform1f(timeFactorLocation, currentTime);
 
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
@@ -58,14 +62,22 @@ public:
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LEQUAL);
 
-        m_instanceCount += currentTime * 0.45f;
-        m_cameraPosition.x = std::sin(currentTime * 0.35f) * 200.0f;
-        m_cameraPosition.y = std::cos(currentTime * 0.35f) * 200.0f;
-        m_cameraPosition.z = std::clamp(std::sin(currentTime * 0.35f) * 400.f + 200.0f, -100.0f, 620.0f);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
-        m_instanceCount = std::clamp(m_instanceCount, 1.0f, 1'000'000.0f);
+        modelMatrix = glm::translate(glm::mat4(1.0f), m_pyramidPosition);
+        modelMatrix = m_viewMatrix * modelMatrix;
 
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 36, static_cast<int>(m_instanceCount));
+        glUniformMatrix4fv(m_matrixViewLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(m_projectionLocation, 1, GL_FALSE, glm::value_ptr(m_projectionMatrix));
+
+        glBindBuffer(GL_ARRAY_BUFFER, m_vbos[1]);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+        glEnableVertexAttribArray(0);
+
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
+
+        glDrawArrays(GL_TRIANGLES, 0, 18);
     }
 
 private:
@@ -73,6 +85,8 @@ private:
     static constexpr int NUM_VBOs = 2;
 
     glm::vec3 m_cameraPosition;
+    glm::vec3 m_cubePosition;
+    glm::vec3 m_pyramidPosition;
 
     GLuint m_renderingProgram;
     std::array<GLuint, NUM_VAOs> m_vaos;
@@ -117,13 +131,27 @@ private:
             1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f
         };
 
+        constexpr float pyramidPositions[54] = {
+            -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //front
+            1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //right
+            1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, //back
+            -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, //left
+            -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, //LF
+            1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f //RR
+
+        };
+
+
         glGenVertexArrays(NUM_VAOs, &m_vaos[0]);
         glBindVertexArray(m_vaos[0]);
 
         glGenBuffers(NUM_VBOs, &m_vbos[0]);
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, m_vbos[1]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(pyramidPositions), pyramidPositions, GL_STATIC_DRAW);
     }
 };
 
-#endif //OPENGL_BOOK_SCENEINSTANCEDCUBE_H
+#endif //OPENGL_BOOK_SCENECUBEPYRAMID_H
