@@ -10,6 +10,7 @@
 #include "scenes/04-chapter/ScenePlainRedCube.h"
 #include "scenes/04-chapter/SceneIntepolateCubeColor.h"
 #include "scenes/04-chapter/SceneSwarmCube.h"
+#include "scenes/04-chapter/SceneInstancedCube.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -20,6 +21,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneIntepolateCubeColor>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneInstancedCube>());
     app.Run();
 }
