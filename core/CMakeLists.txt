@@ -1,10 +1,12 @@
 set(SOURCES
         src/core/Application.cpp
-        src/core/Application.h        src/core/Window.cpp
+        src/core/Application.h
+        src/core/Window.cpp
         src/core/renderer/Renderer.cpp
         src/core/renderer/Renderer.h
         src/core/renderer/Shader.cpp
         src/core/renderer/Shader.h
+        src/core/renderer/Texture.cpp
         src/scene/LayerScene.cpp
 )
 
@@ -22,10 +24,12 @@ find_package(glm CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(SDL3 CONFIG REQUIRED)
 find_package(Stb REQUIRED)
+find_package(soil2 CONFIG REQUIRED)
 
 target_link_libraries(Core PRIVATE
         glm::glm
         OpenGL::GL
         glad::glad
         SDL3::SDL3
+        soil2
 )

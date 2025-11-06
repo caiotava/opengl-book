@@ -12,6 +12,8 @@
 #include "scenes/04-chapter/SceneSwarmCube.h"
 #include "scenes/04-chapter/SceneInstancedCube.h"
 #include "scenes/04-chapter/SceneCubePyramid.h"
+#include "scenes/04-chapter/SceneSimpleSolarSystem.h"
+#include "scenes/05-chapter/ScenePyramidBrickTexture.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -37,7 +39,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneCubePyramid>());
+    app.PushLayer<core::LayerScene>(std::make_unique<ScenePyramidBrickTexture>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;
