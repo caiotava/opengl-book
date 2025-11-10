@@ -33,6 +33,17 @@ namespace core {
         glEnable(GL_PROGRAM_POINT_SIZE);
 #endif
     }
+
+    inline bool enableAnisotropy() {
+#if !defined(__EMSCRIPTEN__)
+        if (SDL_GL_ExtensionSupported("GL_EXT_texture_filter_anisotropic")) {
+            GLfloat anisoSetting = 0.0f;
+            glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &anisoSetting);
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, anisoSetting);
+        }
+#endif
+        return false;
+    }
 }
 
 #endif //OPENGL_BOOK_SYSTEM_H

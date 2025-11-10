@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include <soil2/SOIL2.h>
 
+
 namespace core {
     GLuint loadTexture(const std::filesystem::path& texturePath) {
         GLuint textureID = SOIL_load_OGL_texture(
@@ -14,6 +15,12 @@ namespace core {
             std::cerr << "failed to load texture: " << texturePath << std::endl;
             return 0;
         }
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        enableAnisotropy();
 
         return textureID;
     }

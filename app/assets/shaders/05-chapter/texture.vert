@@ -8,6 +8,7 @@ uniform mat4 perspectiveMatrix;
 uniform sampler2D sampl;
 
 out vec2 textureCoord;
+//noperspective out vec2 textureCoord;
 
 void main(void) {
     gl_Position = perspectiveMatrix * modelViewMatrix * vec4(position, 1.0);

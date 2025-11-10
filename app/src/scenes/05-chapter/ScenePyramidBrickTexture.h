@@ -22,6 +22,7 @@ public:
             "assets/shaders/05-chapter/texture.frag"
         );
         m_brickTexture = core::loadTexture("assets/shaders/05-chapter/brick1.jpg");
+        // m_brickTexture = core::loadTexture("assets/shaders/05-chapter/ice.jpg");
         const auto bufferSize = core::Application::Get().GetFramebufferSize();
         m_aspectRatio = bufferSize.x / bufferSize.y;
 
@@ -47,7 +48,7 @@ public:
 
         m_viewMatrix = glm::translate(glm::mat4(1.0f), -m_cameraPosition);
         m_modelMatrix = glm::translate(glm::mat4(1.0f), m_pyramidPosition);
-        m_modelMatrix = glm::rotate(m_modelMatrix, -0.45f, glm::vec3(1.0f, 0.0f, 0.0f));
+        m_modelMatrix = glm::rotate(m_modelMatrix, -0.55f, glm::vec3(1.0f, 0.0f, 0.0f));
         m_modelMatrix = glm::rotate(m_modelMatrix, 0.61f, glm::vec3(0.0f, 1.0f, 0.0f));
         m_modelMatrix = glm::rotate(m_modelMatrix, 0.00f, glm::vec3(0.0f, 0.0f, 1.0f));
         m_modelViewMatrix = m_viewMatrix * m_modelMatrix;
