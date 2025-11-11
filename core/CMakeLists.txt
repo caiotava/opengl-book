@@ -7,10 +7,14 @@ set(SOURCES
         src/core/renderer/Shader.cpp
         src/core/renderer/Shader.h
         src/core/renderer/Texture.cpp
+        src/core/shapes/Sphere.cpp
         src/scene/LayerScene.cpp
 )
 
 add_library(Core STATIC)
+
+# Allowing the math.h header to define values like: M_PI
+add_compile_definitions(_USE_MATH_DEFINES=1)
 
 set_target_properties(Core PROPERTIES CXX_SCAN_FOR_MODULES OFF)
 
