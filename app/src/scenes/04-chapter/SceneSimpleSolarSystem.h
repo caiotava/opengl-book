@@ -89,8 +89,11 @@ public:
         m_modelViewStack.pop();
 
         m_modelViewStack.push(m_modelViewStack.top());
-        m_modelViewStack.top() *= glm::translate(glm::mat4(1.0f),
-                                                 glm::vec3(0.0f, std::sin(currentTime) * 2.0f, std::cos(currentTime) * 2.0f));
+        m_modelViewStack.top() *= glm::translate(
+            glm::mat4(1.0f),
+            // glm::vec3(std::sin(currentTime) * 2.0f, 0.0f, -std::cos(currentTime) * 2.0f)
+            glm::vec3(std::sin(currentTime) * 2.0f, std::sin(currentTime) * 2.0f, -std::cos(currentTime) * 2.0f)
+        );
         m_modelViewStack.top() *= glm::rotate(glm::mat4(1.0f), currentTime, glm::vec3(0.0f, 0.0f, 1.0f));
         m_modelViewStack.top() *= glm::scale(glm::mat4(1.0f), glm::vec3(0.25f, 0.25f, 0.25f));
 

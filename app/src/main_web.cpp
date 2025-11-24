@@ -15,6 +15,7 @@
 #include "scenes/04-chapter/SceneSimpleSolarSystem.h"
 #include "scenes/05-chapter/ScenePyramidBrickTexture.h"
 #include "scenes/06-chapter/SceneDrawingSphere.h"
+#include "scenes/06-chapter/SceneDrawingTorus.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -40,7 +41,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingSphere>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingTorus>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;

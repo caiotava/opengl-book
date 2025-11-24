@@ -8,6 +8,7 @@ set(SOURCES
         src/core/renderer/Shader.h
         src/core/renderer/Texture.cpp
         src/core/shapes/Sphere.cpp
+        src/core/shapes/Torus.cpp
         src/scene/LayerScene.cpp
 )
 

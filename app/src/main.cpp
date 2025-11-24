@@ -15,6 +15,7 @@
 #include "scenes/04-chapter/SceneSimpleSolarSystem.h"
 #include "scenes/05-chapter/ScenePyramidBrickTexture.h"
 #include "scenes/06-chapter/SceneDrawingSphere.h"
+#include "scenes/06-chapter/SceneDrawingTorus.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -25,6 +26,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingSphere>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingTorus>());
     app.Run();
 }
