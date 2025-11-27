@@ -9,6 +9,7 @@ set(SOURCES
         src/core/renderer/Texture.cpp
         src/core/shapes/Sphere.cpp
         src/core/shapes/Torus.cpp
+        src/core/shapes/ModelImported.cpp
         src/scene/LayerScene.cpp
 )
 

@@ -16,6 +16,7 @@
 #include "scenes/05-chapter/ScenePyramidBrickTexture.h"
 #include "scenes/06-chapter/SceneDrawingSphere.h"
 #include "scenes/06-chapter/SceneDrawingTorus.h"
+#include "scenes/06-chapter/SceneLoadModel.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -41,7 +42,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneDrawingTorus>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneLoadModel>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;
