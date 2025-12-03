@@ -17,6 +17,7 @@
 #include "scenes/06-chapter/SceneDrawingSphere.h"
 #include "scenes/06-chapter/SceneDrawingTorus.h"
 #include "scenes/06-chapter/SceneLoadModel.h"
+#include "scenes/07-chapter/SceneGouraudShader.h"
 
 void RunGameLoop() {
     core::Application::Get().RunLoop();
@@ -42,7 +43,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneInstancedCube>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneGouraudShader>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;

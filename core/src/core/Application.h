@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <glm/vec2.hpp>
+#include <glm/glm.hpp>
 
 #include "Layer.h"
 #include "Window.h"

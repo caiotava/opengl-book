@@ -1,6 +1,7 @@
 #ifndef OPENGL_BOOK_SCENEGOURADSHADER_H
 #define OPENGL_BOOK_SCENEGOURADSHADER_H
 
+#include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -17,8 +18,12 @@ class SceneGouraudShader final : public core::Scene {
 public:
     SceneGouraudShader() : Scene("7.1- Scene Gouraud Shading") {
         m_renderingProgram = core::createGraphicsShader(
-            "assets/shaders/07-chapter/gouraud.vert",
-            "assets/shaders/07-chapter/gouraud.frag"
+            "assets/shaders/07-chapter/blinn-phong.vert",
+            "assets/shaders/07-chapter/blinn-phong.frag"
+            // "assets/shaders/07-chapter/phong.vert",
+            // "assets/shaders/07-chapter/phong.frag"
+            // "assets/shaders/07-chapter/gouraud.vert",
+            // "assets/shaders/07-chapter/gouraud.frag"
         );
 
         m_camera = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -145,7 +150,7 @@ private:
         glGenVertexArrays(NUM_VAOs, &m_vaos[0]);
         glBindVertexArray(m_vaos[0]);
 
-        glCreateBuffers(NUM_VBOs, &m_vbos[0]);
+        glGenBuffers(NUM_VBOs, &m_vbos[0]);
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
         glBufferData(GL_ARRAY_BUFFER, verticesValues.size() * 4, verticesValues.data(), GL_STATIC_DRAW);
 
@@ -170,17 +175,17 @@ private:
         const GLint specularMatLoc = glGetUniformLocation(m_renderingProgram, "material.specular");
         const GLint shininessMatLoc = glGetUniformLocation(m_renderingProgram, "material.shininess");
 
-        glProgramUniform4fv(m_renderingProgram, globalLoc, 1, glm::value_ptr(m_globalLight.getAmbient()));
+        glUniform4fv(globalLoc, 1, glm::value_ptr(m_globalLight.getAmbient()));
 
-        glProgramUniform4fv(m_renderingProgram, ambientLoc, 1, glm::value_ptr(m_whiteLight.getAmbient()));
-        glProgramUniform4fv(m_renderingProgram, diffuseLoc, 1, glm::value_ptr(m_whiteLight.getDiffuse()));
-        glProgramUniform4fv(m_renderingProgram, specularLoc, 1, glm::value_ptr(m_whiteLight.getSpecular()));
-        glProgramUniform4fv(m_renderingProgram, positionLoc, 1, glm::value_ptr(m_whiteLight.getPosition()));
+        glUniform4fv(ambientLoc, 1, glm::value_ptr(m_whiteLight.getAmbient()));
+        glUniform4fv(diffuseLoc, 1, glm::value_ptr(m_whiteLight.getDiffuse()));
+        glUniform4fv(specularLoc, 1, glm::value_ptr(m_whiteLight.getSpecular()));
+        glUniform4fv(positionLoc, 1, glm::value_ptr(m_whiteLight.getPosition()));
 
-        glProgramUniform4fv(m_renderingProgram, ambientMatLoc, 1, glm::value_ptr(m_material.getAmbient()));
-        glProgramUniform4fv(m_renderingProgram, diffuseMatLoc, 1, glm::value_ptr(m_material.getDiffuse()));
-        glProgramUniform4fv(m_renderingProgram, specularMatLoc, 1, glm::value_ptr(m_material.getSpecular()));
-        glProgramUniform1f(m_renderingProgram, shininessMatLoc, m_material.getShininess());
+        glUniform4fv(ambientMatLoc, 1, glm::value_ptr(m_material.getAmbient()));
+        glUniform4fv(diffuseMatLoc, 1, glm::value_ptr(m_material.getDiffuse()));
+        glUniform4fv(specularMatLoc, 1, glm::value_ptr(m_material.getSpecular()));
+        glUniform1f(shininessMatLoc, m_material.getShininess());
     }
 };
 
