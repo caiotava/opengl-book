@@ -17,6 +17,7 @@
 #include "scenes/06-chapter/SceneDrawingSphere.h"
 #include "scenes/06-chapter/SceneDrawingTorus.h"
 #include "scenes/06-chapter/SceneLoadModel.h"
+#include "scenes/07-chapter/SceneGouraudShader.h"
 
 int main() {
     core::ApplicationConfig appConfig;
@@ -27,6 +28,6 @@ int main() {
 
     core::Application app(appConfig);
     // app.PushLayer<AppLayer>();
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneLoadModel>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneGouraudShader>());
     app.Run();
 }

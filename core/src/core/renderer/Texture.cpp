@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include <soil2/SOIL2.h>
+#include <SOIL2/SOIL2.h>
 
 
 namespace core {

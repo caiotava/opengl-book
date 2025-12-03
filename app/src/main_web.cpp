@@ -42,7 +42,7 @@ int main() {
 
     core::Application app(appConfig);
     app.SetRunning(true);
-    app.PushLayer<core::LayerScene>(std::make_unique<SceneLoadModel>());
+    app.PushLayer<core::LayerScene>(std::make_unique<SceneInstancedCube>());
     emscripten_set_main_loop(RunGameLoop, 0, 1);
 
     return 0;

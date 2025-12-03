@@ -2,6 +2,7 @@ set(SOURCES
         src/core/Application.cpp
         src/core/Application.h
         src/core/Window.cpp
+        src/core/components/Material.cpp
         src/core/renderer/Renderer.cpp
         src/core/renderer/Renderer.h
         src/core/renderer/Shader.cpp
