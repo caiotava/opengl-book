@@ -17,8 +17,12 @@ public:
         glBindVertexArray(m_vao[0]);
     }
 
-    void OnUpdate(float ts) override {
+    ~SceneDrawingTriangle() override {
+        glDeleteVertexArrays(NUM_VAOs, m_vao);
+        glDeleteProgram(m_programHandle);
     }
+
+    void OnUpdate(float ts) override {}
 
     void OnRender() override {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

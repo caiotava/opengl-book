@@ -24,6 +24,12 @@ public:
         setupVertices();
     }
 
+    ~SceneIntepolateCubeColor() override {
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
+    }
+
     void OnUpdate(float ts) override {
         ts = core::Application::GetTime() / 1000.0f;
 

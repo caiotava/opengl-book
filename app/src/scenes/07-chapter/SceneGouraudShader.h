@@ -49,6 +49,18 @@ public:
         setupVertices();
     }
 
+    ~SceneGouraudShader() override {
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+
+        glBindVertexArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glUseProgram(0);
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
+    }
+
     void OnRender() override {
         const float currentTime = core::Application::Get().GetTime() / 800.0f;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

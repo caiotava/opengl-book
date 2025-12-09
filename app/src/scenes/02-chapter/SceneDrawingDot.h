@@ -7,6 +7,7 @@
 class SceneDrawingDot final : public core::Scene {
 public:
     SceneDrawingDot();
+    ~SceneDrawingDot() override;
 
     void OnUpdate(float ts) override;
 

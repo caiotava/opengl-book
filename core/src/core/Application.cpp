@@ -33,6 +33,10 @@ namespace core {
     void Application::RunLoop() {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
+            for (const auto& layer : m_layerStack) {
+                layer->OnEvent(event);
+            }
+
             if (event.type == SDL_EVENT_QUIT) {
                 Stop();
                 break;

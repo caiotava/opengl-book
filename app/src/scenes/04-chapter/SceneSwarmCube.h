@@ -24,8 +24,13 @@ public:
         setupVertices();
     }
 
-    void OnUpdate(float ts) override {
+    ~SceneSwarmCube() override {
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
     }
+
+    void OnUpdate(float ts) override {}
 
     void OnRender() override {
         const auto currentTime = core::Application::GetTime() / 800.0f;
@@ -46,7 +51,7 @@ public:
         m_projectionMatrix = glm::perspective(1.0472f, m_aspectRatio, 0.1f, 1000.0f);
         glUniformMatrix4fv(m_projectionLocation, 1, GL_FALSE, glm::value_ptr(m_projectionMatrix));
 
-		m_viewMatrix = glm::translate(glm::mat4(1.0f), -m_cameraPosition);
+        m_viewMatrix = glm::translate(glm::mat4(1.0f), -m_cameraPosition);
 
         for (int x = 0; x < 24; x++) {
             const auto timeFactor = currentTime + x;

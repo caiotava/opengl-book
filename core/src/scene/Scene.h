@@ -10,6 +10,7 @@ namespace core {
         }
 
         virtual ~Scene() = default;
+        // virtual void OnEnter() = 0;
         virtual void OnUpdate(float ts) {}
         virtual void OnRender() {}
 

@@ -33,6 +33,14 @@ public:
         setupVertices();
     }
 
+    ~SceneDrawingSphere() override {
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(1, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
+    }
+
     void OnUpdate(float ts) override {
     }
 

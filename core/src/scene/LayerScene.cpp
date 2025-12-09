@@ -1,8 +1,9 @@
 #include "LayerScene.h"
 
+#include <core/Application.h>
+
 namespace core {
-    LayerScene::LayerScene(std::unique_ptr<Scene> scene) : m_scene(std::move(scene)) {
-    }
+    LayerScene::LayerScene() {}
 
     LayerScene::~LayerScene() = default;
 
@@ -14,7 +15,16 @@ namespace core {
         m_scene->OnRender();
     }
 
-    void LayerScene::SetScene(std::unique_ptr<Scene> scene) {
-        m_scene = std::move(scene);
+    bool LayerScene::SetSceneByName(const std::string& name) {
+        if (!m_scenes.contains(name)) {
+            return false;
+        }
+
+        const auto& newScene = m_scenes[name];
+        m_scene = nullptr;
+        m_scene = newScene();
+        m_sceneName = name;
+
+        return true;
     }
 }

@@ -30,6 +30,7 @@ namespace core {
         bool ShouldClose() const;
 
         SDL_Window* GetHandler() const { return m_sdlWindow.get(); }
+        SDL_GLContext GetGLContext() const { return m_openGLContex; }
 
     private:
         WindowConfig m_config;

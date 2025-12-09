@@ -19,6 +19,11 @@ public:
         glBindVertexArray(m_vao[0]);
     }
 
+    ~SceneSimpleRotation() override {
+        glDeleteVertexArrays(NUM_VAOs, &m_vao[0]);
+        glDeleteProgram(m_programHandle);
+    }
+
     void OnUpdate(float ts) override {
         m_trianglePosX += m_movingOffset * ts;
         if (std::abs(m_trianglePosX) > 1.0f) {

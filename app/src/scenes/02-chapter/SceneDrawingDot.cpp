@@ -8,8 +8,12 @@ SceneDrawingDot::SceneDrawingDot() : Scene("2.2 Shaders, Drawing a POINT") {
     glBindVertexArray(m_vao[0]);
 }
 
-void SceneDrawingDot::OnUpdate(float ts) {
+SceneDrawingDot::~SceneDrawingDot() {
+    glDeleteVertexArrays(numVAOs, m_vao);
+    glDeleteProgram(m_renderingProgram);
 }
+
+void SceneDrawingDot::OnUpdate(float ts) {}
 
 void SceneDrawingDot::OnRender() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

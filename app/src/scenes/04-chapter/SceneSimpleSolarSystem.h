@@ -26,8 +26,13 @@ public:
         setupVertices();
     }
 
-    void OnUpdate(float ts) override {
+    ~SceneSimpleSolarSystem() override {
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
     }
+
+    void OnUpdate(float ts) override {}
 
     void OnRender() override {
         const auto currentTime = core::Application::GetTime() / 800.0f;

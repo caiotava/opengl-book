@@ -24,11 +24,22 @@ namespace core {
         void RunLoop();
         void Stop();
         void SetRunning(bool running) { m_isRunning = running; }
+        const Window& GetWindow() const { return *m_window; }
 
-        template <typename TLayer, typename... Args>
-            requires(std::is_base_of_v<Layer, TLayer>)
+        template <typename TLayer, typename... Args> requires(std::is_base_of_v<Layer, TLayer>)
         void PushLayer(Args&&... args) {
             m_layerStack.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
+        }
+
+        template <typename TLayer> requires(std::is_base_of_v<Layer, TLayer>)
+        TLayer* GetLayer() {
+            for (auto& layer : m_layerStack) {
+                if (auto casted = dynamic_cast<TLayer*>(layer.get())) {
+                    return casted;
+                }
+            }
+
+            return nullptr;
         }
 
         glm::vec2 GetFramebufferSize() const;

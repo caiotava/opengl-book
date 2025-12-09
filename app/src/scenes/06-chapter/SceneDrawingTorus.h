@@ -39,6 +39,14 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     }
 
+    ~SceneDrawingTorus() override {
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_renderingProgram);
+    }
+
     void OnUpdate(float ts) override {
     }
 

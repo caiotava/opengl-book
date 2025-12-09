@@ -40,6 +40,14 @@ public:
         m_texture = core::loadTexture("assets/shaders/06-chapter/shuttle.jpg");
     }
 
+    ~SceneLoadModel() override {
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+        glDeleteBuffers(NUM_VBOs, &m_vbos[0]);
+        glDeleteVertexArrays(NUM_VAOs, &m_vaos[0]);
+        glDeleteProgram(m_programRendering);
+    }
+
     void OnUpdate(float ts) override {
     }
 
